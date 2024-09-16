@@ -1,0 +1,21 @@
+2024-09-13 10:48:46.647 | INFO     | __main__:divide:7 - calculating...
+2024-09-13 10:48:46.648 | WARNING  | __main__:divide:9 - Note: b=0 can lead to an error in the application.
+2024-09-13 10:48:59.758 | INFO     | __main__:divide:7 - calculating...
+2024-09-13 10:48:59.759 | WARNING  | __main__:divide:9 - Note: b=0 can lead to an error in the application.
+2024-09-13 10:48:59.759 | CRITICAL | __main__:<module>:15 - division by 0
+2024-09-13 10:48:59.759 | ERROR    | __main__:<module>:16 - division by 0
+2024-09-13 10:52:54.265 | INFO     | __main__:divide:8 - calculating...
+2024-09-13 10:52:54.266 | WARNING  | __main__:divide:10 - Note: b=0 can lead to an error in the application.
+2024-09-13 10:52:54.266 | ERROR    | __main__:<module>:14 - An error has been caught in function '<module>', process 'MainProcess' (69056), thread 'MainThread' (69232):
+Traceback (most recent call last):
+
+> File "c:\Users\Stefania\Documents\Projects\toy-model\logging_test.py", line 14, in <module>
+    print(divide(2, 0))
+          └ <function divide at 0x000001AB57FDDB20>
+
+  File "c:\Users\Stefania\Documents\Projects\toy-model\logging_test.py", line 11, in divide
+    return a / b
+           │   └ 0
+           └ 2
+
+ZeroDivisionError: division by zero

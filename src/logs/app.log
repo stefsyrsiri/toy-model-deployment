@@ -1,0 +1,20 @@
+2024-09-16 13:39:44.198 | INFO     | __main__:main:23 - running the application...
+2024-09-16 13:39:44.205 | INFO     | model.model_service:load_model:50 - checking the existence of model config file at model\models\rf_v1
+2024-09-16 13:39:44.206 | INFO     | model.model_service:load_model:58 - model rf_v1 exists! -> loading model configuration file
+2024-09-16 13:39:44.221 | INFO     | model.model_service:predict:77 - making prediction!
+2024-09-16 13:39:44.224 | INFO     | __main__:main:40 - prediction = [2080.07200966]
+2024-09-16 13:50:12.900 | INFO     | __main__:main:23 - running the application...
+2024-09-16 13:50:12.900 | INFO     | model.model_service:load_model:50 - checking the existence of model config file at model\models\rf_v1
+2024-09-16 13:50:12.903 | INFO     | model.model_service:load_model:58 - model rf_v1 exists! -> loading model configuration file
+2024-09-16 13:50:12.910 | INFO     | model.model_service:predict:77 - making prediction!
+2024-09-16 13:50:12.913 | INFO     | __main__:main:40 - prediction = [2080.07200966]
+2024-09-16 13:52:25.581 | INFO     | __main__:main:23 - running the application...
+2024-09-16 13:52:25.582 | INFO     | model.model_service:load_model:50 - checking the existence of model config file at model\models\rf_v1
+2024-09-16 13:52:25.582 | INFO     | model.model_service:load_model:58 - model rf_v1 exists! -> loading model configuration file
+2024-09-16 13:52:25.589 | INFO     | model.model_service:predict:77 - making prediction!
+2024-09-16 13:52:25.592 | INFO     | __main__:main:40 - prediction = [2080.07200966]
+2024-09-16 13:52:45.288 | INFO     | __main__:main:23 - running the application...
+2024-09-16 13:52:45.288 | INFO     | model.model_service:load_model:50 - checking the existence of model config file at model\models\rf_v1
+2024-09-16 13:52:45.288 | INFO     | model.model_service:load_model:58 - model rf_v1 exists! -> loading model configuration file
+2024-09-16 13:52:45.295 | INFO     | model.model_service:predict:77 - making prediction!
+2024-09-16 13:52:45.298 | INFO     | __main__:main:40 - prediction = [2080.07200966]
