@@ -29,16 +29,24 @@ jobs:
       with:
         virtualenvs-in-project: true
     
-    - name: Load cached venv
+    - name: Add Poetry to PATH
+      shell: powershell
+      run: |
+        $poetryPath = (Get-Command poetry).Source
+        echo "##[add-path]$poetryPath"
+  
+    - name: Cache dependencies
       uses: actions/cache@v4
-      id: cached-poetry-dependencies
+      id: poetry-cache
       with:
         path: .venv
         key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          venv-${{ runner.os }}-
 
     - name: Install dependencies using poetry
-      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      run: C:\Users\runneradmin\AppData\Roaming\Python\Scripts\poetry install
+      if: steps.poetry-cache.outputs.cache-hit != 'true'
+      run: poetry install
 
     - name: Lint with flake8
-      run: C:\Users\runneradmin\AppData\Roaming\Python\Scripts\poetry run flake8 .
+      run: poetry run flake8 .
