@@ -37,7 +37,7 @@ def main() -> None:
     }
 
     pred = ml_svc.predict(list(feature_values.values()))
-    logger.info(f"prediction = {pred}")
+    logger.info(f'prediction = {pred}')
 
 
 if __name__ == '__main__':

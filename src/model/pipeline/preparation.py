@@ -7,8 +7,8 @@ encode categorical columns, and parse specific columns for further processing.
 
 import re
 
-from loguru import logger
 import pandas as pd
+from loguru import logger
 
 from model.pipeline.collection import load_data
 
@@ -23,7 +23,7 @@ def prepare_data() -> pd.DataFrame:
     Returns:
         pd.DataFrame: The processed dataset.
     """
-    logger.info("starting up preprocessing pipeline")
+    logger.info('starting up preprocessing pipeline')
     # 1. load the dataset
     dataframe = load_data()
     # 2. encode columns like balcony, parking etc
@@ -32,23 +32,25 @@ def prepare_data() -> pd.DataFrame:
     return _parse_garden_col(data_encoded)
 
 
-def _encode_cat_cols(data) -> pd.DataFrame:
+def _encode_cat_cols(dataframe) -> pd.DataFrame:
     """
     Encode categorical columns into dummy variables.
 
-    Arg:
+    Args:
         dataframe (pd.DataFrame): The original dataset.
 
     Returns:
         pd.DataFrame: Dataset with categorical columns encoded.
     """
-    cols = ['balcony',
-            'parking',
-            'furnished',
-            'garage',
-            'storage']
+    cols = [
+        'balcony',
+        'parking',
+        'furnished',
+        'garage',
+        'storage',
+        ]
     logger.info(f'encoding categorical columns {cols}')
-    return pd.get_dummies(data, columns=cols, drop_first=True)
+    return pd.get_dummies(dataframe, columns=cols, drop_first=True)
 
 
 def _parse_garden_col(dataframe) -> pd.DataFrame:
@@ -62,6 +64,6 @@ def _parse_garden_col(dataframe) -> pd.DataFrame:
         pd.DataFrame: The dataset with the 'garden' column parsed.
     """
     dataframe['garden'] = dataframe['garden'].apply(
-        lambda x: 0 if x == 'Not present' else int(re.findall(r'\d+', x)[0])
+        lambda x: 0 if x == 'Not present' else int(re.findall(r'\d+', x)[0]),
     )
     return dataframe

@@ -18,6 +18,9 @@ def load_data(path=model_settings.data_file_name) -> pd.DataFrame:
     """
     Extract the entire RentApartments DataFrame.
 
+    Args:
+        path: Path of the csv file
+
     Returns:
         pd.DataFrame: DataFrame containing the RentApartments data.
     """

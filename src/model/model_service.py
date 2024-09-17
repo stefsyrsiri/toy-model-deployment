@@ -39,37 +39,45 @@ class ModelService:
     """
 
     def __init__(self) -> None:
+        """Initialize the ModelService with no model loaded."""
         self.model = None
-        """Initializes the ModelService with no model loaded."""
 
     def load_model(self) -> None:
-        model_path = Path(f'{model_settings.model_path}/'
-                          f'{model_settings.model_name}')
-        """Loads the model from a specified path, or builds it if not exist"""
+        """Load the model from a specified path, or build it if not exist."""
+        model_path = Path(
+            f'{model_settings.model_path}/'
+            f'{model_settings.model_name}',
+            )
 
-        logger.info(f'checking the existence of '
-                    f'model config file at {model_path}')
+        logger.info(
+            f'checking the existence of '
+            f'model config file at {model_path}',
+            )
 
         if not model_path.exists():
-            logger.info(f'model at {model_path} was not found -> '
-                        f'building {model_settings.model_name}')
+            logger.info(
+                f'model at {model_path} was not found -> '
+                f'building {model_settings.model_name}',
+                )
             build_model()
 
-        logger.info(f'model {model_settings.model_name} exists! -> '
-                    f'loading model configuration file')
+        logger.info(
+            f'model {model_settings.model_name} exists! -> '
+            f'loading model configuration file',
+            )
 
-        with open(model_path, 'rb') as file:
-            self.model = pk.load(file)
+        with open(model_path, 'rb') as model_file:
+            self.model = pk.load(model_file)
 
     def predict(self, input_args: list) -> list:
         """
-        Makes a prediction using the loaded model.
+        Make a prediction using the loaded model.
 
         Takes input parameters and passes it to the model, which
         was loaded using a pickle file.
 
         Args:
-            input_parameters (list): The input data for making a prediction.
+            input_args (list): The input data for making a prediction.
 
         Returns:
             list: The prediction result from the model.

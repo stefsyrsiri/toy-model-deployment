@@ -5,8 +5,8 @@ It utilizes Pydantic's BaseSettings for configuration management,
 allowing settings to be read from environment variavbles and a .env file.
 """
 
-from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import DirectoryPath, FilePath
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class ModelSettings(BaseSettings):
@@ -18,11 +18,12 @@ class ModelSettings(BaseSettings):
         model_path (DirectoryPath): Filesystem path to the model.
         model_name (str): Name of the ML model.
     """
+
     model_config = SettingsConfigDict(
         env_file='config/.env',
         env_file_encoding='utf-8',
         extra='ignore',
-        protected_namespaces=('settings',)
+        protected_namespaces=('settings',),
     )
 
     data_file_name: FilePath

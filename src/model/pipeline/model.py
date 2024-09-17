@@ -10,12 +10,11 @@ import pickle as pk
 
 import pandas as pd
 from loguru import logger
-from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV, train_test_split
 
-from model.pipeline.preparation import prepare_data
 from config import model_settings
+from model.pipeline.preparation import prepare_data
 
 
 def build_model() -> None:
@@ -44,7 +43,7 @@ def build_model() -> None:
         'parking_yes',
         'furnished_yes',
         'garage_yes',
-        'storage_yes'
+        'storage_yes',
     ]
 
     # 2. identify X and y
@@ -64,30 +63,32 @@ def build_model() -> None:
 
 
 def _get_x_y(
-        data: pd.DataFrame,
-        col_x: list[str],
-        col_y: str = 'rent'
+    dataframe: pd.DataFrame,
+    col_x: list[str],
+    col_y: str = 'rent',
 ) -> tuple[pd.DataFrame, pd.Series]:
     """
     Split the dataset into features and target variable.
 
     Args:
-        data (pd.DataFrame): The dataset to be split.
+        dataframe (pd.DataFrame): The dataset to be split.
         col_x (list[str]): List of column names for features.
         col_y (str): Name of the target variable column.
 
     Returns:
         tuple: Features and target variables.
     """
-    logger.info(f'defining X and y variables. \n'
-                f'X vars: {col_x}\ny var: {col_y}')
+    logger.info(
+        f'defining X and y variables. \n'
+        f'X vars: {col_x}\ny var: {col_y}',
+        )
 
-    return data[col_x], data[col_y]
+    return dataframe[col_x], dataframe[col_y]
 
 
 def _split_train_test(
-        features: pd.DataFrame,
-        target: pd.Series
+    features: pd.DataFrame,
+    target: pd.Series,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     """
     Split the data into training and testing sets.
@@ -105,8 +106,8 @@ def _split_train_test(
 
 
 def _train_model(
-        X_train,
-        y_train
+    X_train,
+    y_train,
 ) -> RandomForestRegressor:
     """
     Train the RandomForestRegressor model with hyperparameter tuning.
@@ -118,18 +119,21 @@ def _train_model(
     Returns:
         RandomForestRegressor: The best estimator after GridSearch.
     """
-    logger.info("training a model with hyperparameters")
+    logger.info('training a model with hyperparameters')
 
     grid_space = {
         'n_estimators': [100, 200, 300],
-        'max_depth': [3, 6, 9, 12]}
+        'max_depth': [3, 6, 9, 12],
+        }
 
-    logger.debug
+    logger.debug(f'grid_space = {grid_space}')
 
-    grid = GridSearchCV(RandomForestRegressor(),
-                        param_grid=grid_space,
-                        cv=5,
-                        scoring='r2')
+    grid = GridSearchCV(
+        RandomForestRegressor(),
+        param_grid=grid_space,
+        cv=5,
+        scoring='r2',
+        )
 
     model_grid = grid.fit(X_train, y_train)
     return model_grid.best_estimator_
@@ -151,10 +155,12 @@ def _evaluate_model(
     Returns:
         float: The model's score.
     """
-    logger.info(f'evaluating model performance, '
-                f'SCORE={model.score(X_test, y_test)}')
-
-    return model.score(X_test, y_test)
+    model_score = model.score(
+        X_test,
+        y_test,
+    )
+    logger.info(f'evaluating model performance. SCORE={model_score}')
+    return model_score
 
 
 def _save_model(model: RandomForestRegressor) -> None:
@@ -167,8 +173,9 @@ def _save_model(model: RandomForestRegressor) -> None:
     Return:
         None
     """
-    logger.info(f'saving model to a directory: '
-                f'{model_settings.model_path}/{model_settings.model_name}')
-
-    pk.dump(model, open(f'{model_settings.model_path}/'
-                        f'{model_settings.model_name}', 'wb'))
+    logger.info(
+        f'saving model to a directory: '
+        f'{model_settings.model_path}/{model_settings.model_name}',
+        )
+    with open(model_settings.model_path, 'wb') as model_file:
+        pk.dump(model, model_file)

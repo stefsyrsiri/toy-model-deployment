@@ -17,10 +17,11 @@ class LoggerSettings(BaseSettings):
         model_config (SettingsConfigDict): Model config, loaded from .env file.
         log_level (str): Logging level for the application.
     """
+
     model_config = SettingsConfigDict(
         env_file='config/.env',
         env_file_encoding='utf-8',
-        extra='ignore'
+        extra='ignore',
     )
 
     log_level: str
@@ -32,9 +33,6 @@ def configure_logging(log_level: str) -> None:
 
     Args:
         log_level (str): The log level to be set for the logger.
-
-    Returns:
-        None
     """
     logger.remove()
     logger.add(
