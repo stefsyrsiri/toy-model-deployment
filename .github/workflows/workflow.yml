@@ -19,21 +19,20 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Install make via Chocolatey
-      run: choco install make
-
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.12'
-    
+
     - name: Install poetry
       run: |
         (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python -
         $env:PATH += ";C:\Users\runneradmin\AppData\Roaming\Python\Scripts"
-      
-    - name: Install dependencies using poetry
-      run: make install  # Now that make is installed, this should work.
     
+    # Replaces 'make install' with the direct poetry command
+    - name: Install dependencies
+      run: C:\Users\runneradmin\AppData\Roaming\Python\Scripts\poetry install
+
+    # Replaces 'make check' with direct flake8 call
     - name: Lint with flake8
-      run: make check
+      run: C:\Users\runneradmin\AppData\Roaming\Python\Scripts\poetry run flake8 .
