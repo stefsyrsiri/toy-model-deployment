@@ -26,11 +26,11 @@ jobs:
     
     - name: Install poetry
       run: |
-        curl -sSL https://install.python-poetry.org | python - 
-        export PATH=$HOME/.local/bin:$PATH
+        (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python -
+        $env:PATH += ";C:\Users\runneradmin\AppData\Roaming\Python\Scripts"
       
     - name: Install dependencies using poetry
-      run: poetry run make install
+      run: C:\Users\runneradmin\AppData\Roaming\Python\Scripts\poetry run make install
     
     - name: Lint with flake8
-      run: poetry run make check
+      run: C:\Users\runneradmin\AppData\Roaming\Python\Scripts\poetry run make check
