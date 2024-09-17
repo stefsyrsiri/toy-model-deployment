@@ -20,8 +20,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Build application
-      uses: ./.github/actions/build-application
+    # - name: Build application
+    #   uses: ./.github/actions/build-application
 
     - name: Lint with flake8
       run: poetry run make check
