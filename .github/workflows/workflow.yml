@@ -19,6 +19,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: Install make via Chocolatey
+      run: choco install make
+
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
@@ -30,7 +33,7 @@ jobs:
         $env:PATH += ";C:\Users\runneradmin\AppData\Roaming\Python\Scripts"
       
     - name: Install dependencies using poetry
-      run: C:\Users\runneradmin\AppData\Roaming\Python\Scripts\poetry run make install
+      run: make install  # Now that make is installed, this should work.
     
     - name: Lint with flake8
-      run: C:\Users\runneradmin\AppData\Roaming\Python\Scripts\poetry run make check
+      run: make check
